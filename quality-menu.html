@@ -1,0 +1,217 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/app-menu/app-menu.html">
+<link rel="import" href="../../bower_components/app-menu/app-submenu.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+
+<dom-module id="quality-menu">
+  <template>
+      <custom-style>
+          <style is="custom-style">
+          body {
+            margin: 0;
+            font-family: 'Roboto', 'Noto', sans-serif;
+            background-color: #eee;
+          }
+          app-header {
+            background-color: #4285f4;
+            color: #fff;
+          }
+          app-header paper-icon-button {
+            --paper-icon-button-ink-color: #fff;
+          }
+          app-drawer-layout {
+            --app-drawer-layout-content-transition: margin 0.2s;
+          }
+          app-drawer {
+            --app-drawer-content-container: {
+              background-color: #eee;
+            }
+          }
+          .drawer-content {
+            margin-top: 80px;
+            height: calc(100% - 80px);
+            overflow: auto;
+          }
+          </style>
+        </custom-style>
+      
+      </head>
+      <body unresolved>
+      
+        <app-header-layout>
+      
+          <app-header fixed effects="waterfall" slot="header">
+            <app-toolbar>
+              <paper-icon-button id="toggle" icon="menu"></paper-icon-button>
+              <div main-title>Inbox</div>
+            </app-toolbar>
+          </app-header>
+      
+          <app-drawer-layout id="drawerLayout">
+      
+            <app-drawer slot="drawer">
+              <div class="drawer-content">
+                <paper-icon-item>
+                  <iron-icon icon="inbox" slot="item-icon"></iron-icon> <span>Inbox</span>
+                </paper-icon-item>
+                <paper-icon-item>
+                  <iron-icon icon="query-builder" slot="item-icon"></iron-icon> <span>Snoozed</span>
+                </paper-icon-item>
+                <paper-icon-item>
+                  <iron-icon icon="done" slot="item-icon"></iron-icon> <span>Done</span>
+                </paper-icon-item>
+                <paper-icon-item>
+                  <iron-icon icon="drafts" slot="item-icon"></iron-icon> <span>Drafts</span>
+                </paper-icon-item>
+                <paper-icon-item>
+                  <iron-icon icon="send" slot="item-icon"></iron-icon> <span>Sent</span>
+                </paper-icon-item>
+                <paper-icon-item>
+                  <iron-icon icon="delete" slot="item-icon"></iron-icon> <span>Trash</span>
+                </paper-icon-item>
+                <paper-icon-item>
+                  <iron-icon icon="report" slot="item-icon"></iron-icon> <span>Spam</span>
+                </paper-icon-item>
+              </div>
+            </app-drawer>
+            
+            <sample-content size="100"></sample-content>
+      
+          </app-drawer-layout>
+      
+        </app-header-layout>
+      
+        <script>
+          var drawerLayout = document.getElementById('drawerLayout');
+          toggle.addEventListener('click', function() {
+            if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
+              drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
+            } else {
+              drawerLayout.drawer.toggle();
+            }
+          });
+        </script>
+    <!-- <style>
+      :host {
+        display: block;
+        width: 333px;
+        height: 100%;
+        float: left;
+        color: rgb(70, 70, 70);
+        border-right: 1px solid rgb(221, 221, 221);
+      }
+
+      app-toolbar {
+        background-color: #e82164;
+        height: 50px;
+        color: #fff;
+
+      }
+
+      app-menu {
+        --app-menu-color: #616161;
+        --primary-color: #F62A5A;
+        --app-menu-selected-bg-color: rgba(0, 0, 0, 0.05);
+      }
+    </style> -->
+
+    <!-- <app-toolbar>
+      <iron-icon icon="settings"></iron-icon>
+      <div main-title>ตั้งค่า</div>
+      <paper-icon-button id="toggle" icon="close"></paper-icon-button>
+    </app-toolbar>
+      <app-menu>
+      <app-submenu >
+        <div class="app-menu-item" slot="submenu-trigger">
+          <app-menu-icon-item icon="icons:account-balance">ข้อมูล</app-menu-icon-item>
+          <iron-icon icon="expand-more" class="expand-icon"></iron-icon>
+        </div>
+        <app-menu slot="submenu-content">
+          <a on-click="goSelectedPageHistory" class="app-menu-item" name="history">ประวัติการสำรวจลูกน้ำยุงลาย</a>
+          <a on-click="goSelectedPagDetails" class="app-menu-item" name="detail">รายละเอียดสถานที่</a>
+        </app-menu>
+      </app-submenu>
+
+      <app-submenu>
+        <div class="app-menu-item" slot="submenu-trigger">
+          <app-menu-icon-item icon="chrome-reader-mode">คุณภาพข้อมูล</app-menu-icon-item>
+          <iron-icon icon="expand-more" class="expand-icon"></iron-icon>
+        </div>
+        <app-menu slot="submenu-content">
+          <a class="app-menu-item" href="javascript:void(0)">สถานที่ซ้ำซ้อน</a>
+          <a class="app-menu-item" href="javascript:void(0)">สถานที่ผิดประเภท</a>
+          <a class="app-menu-item" href="javascript:void(0)">พิกัดสถานที่</a>
+          <a class="app-menu-item" href="javascript:void(0)">บ้านซ้ำซ้อน</a>
+        </app-menu>
+      </app-submenu>
+    </app-menu>   -->
+  </template>
+
+  <script>
+    class QualityMenu extends Polymer.Element {
+      static get is() {
+        return 'quality-menu';
+      }
+
+      static get properties() {
+        return {
+          selectedPage: {
+            type: Number,
+            value: 0,
+            notify: true
+          },
+        };
+      }
+
+      constructor() {
+        super();
+      }
+
+      goSelectedPageHistory() {
+        this.selectedPage = "0";
+        //0 -go to page History
+      }
+
+      goSelectedPagDetails() {
+        this.selectedPage = "1";
+        //1 -go to page Detail
+      }
+
+      SelectedPage(e) {
+        if (this.selectedPage === "test") {
+          this.selectedPage = "test2";
+        } else {
+          this.selectedPage = "test";
+        }
+        console.log("page = ", this.selectedPage)
+      }
+
+      ready() {
+        super.ready();
+        Polymer.RenderStatus.afterNextRender(this, function () {
+
+        });
+      }
+     
+      static get observers() {
+      return [
+        '_routePageChanged(routeData.page)',
+      ];
+    }
+
+    }
+    
+
+    window.customElements.define(QualityMenu.is, QualityMenu);
+  </script>
+</dom-module>
